@@ -1,4 +1,4 @@
-interface UserS{
+interface User{
       readonly id : number
       email: string,
       password: string,
@@ -7,8 +7,11 @@ interface UserS{
       
 }
 
+interface Admin extends User{
+      role: 'admin'
+}
 
-const worker:UserS = {
+const worker:User = {
       id:37, 
       email: 'bish@gmail.com',
       password:'fuckme',
@@ -22,53 +25,20 @@ const worker:UserS = {
 };
 
 
+const person: Admin = {
+      id:37,
+      email: 'admin@gmail.com',
+      password: 'admin34',
+      role: 'admin',
+      welcome: ()=>{
+            return 'fuck mea'
+      },
 
-enum Roles{
-      ADMIN = 'ADMIN',
-      STAFF = 'STAFF',
-      CLIENT = 'CLIENT'
-};
-
-
-interface User{
-      id: string | number,
-      name: string,
-      role: Roles,
-      email?: string,
-      isActive: boolean
-};
-
-const users:Array<User>= [
-    {
-      id: '123',
-      name: 'bishop',
-      role: Roles.ADMIN,
-      email: 'bish@gmail.com',
-      isActive: true
-    },   
-    {
-      id: '124',
-      name: 'clan',
-      role: Roles.STAFF,
-      email: 'clam.com',
-      isActive: false
-    },   
-    {
-      id: '124',
-      name: 'clan',
-      role: Roles.CLIENT,
-      isActive: true
-    },   
-]
-
-
-function printUserRole(user:Array<User>):void{
-
-      user.forEach(user=>{
-            console.log(`${user.name} (${user.role}) is ${user.isActive}`)
-      })
-
+      createcoupon(){
+            return 1234
+      }
 }
 
-console.log(printUserRole(users))
+
+
 export{}
