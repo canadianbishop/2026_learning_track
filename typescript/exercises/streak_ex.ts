@@ -15,6 +15,52 @@ interface User{
       isActive: boolean
 };
 
+let myUsers:User[]= [
+ {
+      id: '123',
+      name: 'bishop',
+      role: Roles.ADMIN,
+      email: 'bish@gmail.com',
+      isActive: true
+    },   
+    {
+      id: '124',
+      name: 'clan',
+      role: Roles.STAFF,
+      email: 'clam.com',
+      isActive: false
+    },   
+    {
+      id: '124',
+      name: 'fred',
+      role: Roles.ADMIN,
+      isActive: true
+    },   
+    {
+      id: '124',
+      name: 'jane',
+      role: Roles.CLIENT,
+      isActive: false
+    }  
+
+]
+
+
+const addUser = (user:User): Array<User>=>{
+  return [user,...myUsers]
+}
+
+const myActiveUsers = (val:Array<User>):Array<User>=>{
+   const active = val.filter(user=> user.isActive === true);
+   return active
+}
+
+const findUser =(val:string):User | string=>{
+  const user = myUsers.find(user=> user.email === val);
+  if(!user) return  'user not found';
+  return user
+}
+
 let users:Array<User>= [
     {
       id: '123',
