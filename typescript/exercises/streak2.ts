@@ -83,3 +83,174 @@ function findBId<T extends {id:number}> (val:T[], id:number): T | undefined{
 
 
 
+// more on typeguards  and custom type predicates
+
+type Payload = string| number | {id:string, score:number};
+
+function isScorePayload(val:Payload): val  is {id:string, score:number}{
+   return typeof val === 'object' && val !== null && 'id' in val
+};
+
+function handlePayload(val:Payload):void{
+   if(typeof val === 'string' ){
+     console.log(val.toUpperCase())
+   }else if(isScorePayload(val)){
+     console.log(`id: ${val.id}  score: ${val.score}`)
+   }else{
+      console.log(val*2)
+   }
+}
+
+
+// instanceof and in operator
+
+class Book{
+  constructor(public title:string){}
+};
+
+class magazine{
+  constructor (public pages:number){}
+};
+
+
+function checkBook(item:Book|magazine):void{
+  if(item instanceof Book){
+    console.log(`the title of the book is ${item.title}`)
+  }else{
+    console.log(`you have a magazine with ${item.pages} pages`)
+  }
+};
+
+
+// type Student = {name: string}
+type Teacher = {name: string, subject:string}
+
+
+function checkPerson(person:Student| Teacher){
+  if('subject' in person){
+    console.log('this is a teacher')
+  }else{
+    console.log('this is a student..')
+  }
+};
+
+
+interface Person{
+  name:string,
+  age: number,
+  hasCar:boolean
+};
+
+interface Student extends Person{
+  matric_no: number
+};
+
+
+type Staff = Person & {role:string};
+
+
+function checkPeron(user:Student| Staff):void{
+   if('matric_no' in user){
+    console.log('this user is a student')
+   }else{
+    console.log('this user is a staff')
+   }
+};
+
+
+// partial
+
+let personOne:Person={
+  name: 'bishop',
+  age: 57,
+  hasCar: true
+};
+
+function updatePerson(val:Partial<Person>):Person{
+  return {...personOne, ...val}
+  
+}
+
+
+updatePerson({name:'ayoola'});
+
+
+// readOnly
+
+let personTwo: Readonly<Person> ={
+  name: 'ceo',
+  age:39,
+  hasCar: true
+};
+
+
+// personTwo.age = 39
+
+
+// required
+
+interface Car{
+  brand:string,
+  year:number,
+  bluetooth?: boolean,
+  color: string
+};
+
+
+
+
+const lexus: Car = {
+  brand: 'toyota',
+  year:2003,
+  bluetooth: true,
+  color: 'yellow'
+};
+const bmw: Car = {
+  brand: 'i6',
+  year:2003,
+  bluetooth: false,
+  color: 'blue'
+};
+const benz: Required<Car> = {
+  brand: 'is200',
+  year:2003,
+  bluetooth: true,
+  color: 'yellow'
+};
+
+
+
+// pick..
+
+interface Car{
+  brand:string,
+  year:number,
+  bluetooth?: boolean,
+  color: string
+};
+
+
+const justName: Pick<Car, 'brand' | 'year'>  = {
+   brand:'toyota', 
+   year: 3747
+};
+
+// Omit
+
+interface Registration{
+  name:string,
+  email:string,
+  id: number
+};
+
+type registerPayload = Omit<Registration , 'id'>;
+
+function registerUser(user:registerPayload){
+  console.log(`user ${user.name} created`)
+};
+
+
+registerUser({
+  name: 'bishop',
+  email: 'bish@gmail.com'
+})
