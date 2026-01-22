@@ -253,4 +253,28 @@ function registerUser(user:registerPayload){
 registerUser({
   name: 'bishop',
   email: 'bish@gmail.com'
-})
+});
+
+
+
+// mini exercise ..
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  age: number;
+  role: "admin" | "teacher" | "student";
+};
+
+type UserPreview = Omit< User, 'email' | 'age'>;
+
+function identifyUser(user:UserPreview){
+  console.log( `${user.name} is ${user.role}`)
+};
+
+
+
+// record;
+
+
