@@ -16,12 +16,7 @@ interface User {
     return users.map(({profile})=> profile.age);
     }
  
-    function getTwitter(users:User[]):string[]|undefined{
-
-    return users.map(({profile}) =>( profile.social?.twitter));
     
-
-    };
 
     function getAdultUsers(users:User[]){
       return users.filter(({profile: {age}})=> age > 30 )
@@ -38,4 +33,7 @@ interface User {
 
       return sum/ users.length
 
-    }
+    };
+
+
+    
